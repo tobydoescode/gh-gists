@@ -15,7 +15,7 @@ pipeline {
           sh '''
             set +x
             docker login -u evoio -p $TOKEN
-            docker push
+            docker push evoio/gh-gists:latest
           '''
         }
       }
