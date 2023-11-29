@@ -21,8 +21,14 @@ pipeline {
       }
     }
 
-    // stage('deploy') {
+    stage('deploy') {
+      steps {
+        withCredentials([file(credentialsId: KUBECONFIG, variable: 'KUBECONFIG')]) {
+            writeFile file: '/root/.kube/config', text: readFile(KUBECONFIG)
+        }
 
-    // }
+        sh 'kubectl apply -f deploy.yaml'
+      }
+    }
   }
 }

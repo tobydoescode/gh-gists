@@ -1,0 +1,31 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gh-gists
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gh-gists
+  namespace: gh-gists
+spec:
+  selector:
+    matchLabels:
+      app: gh-gists
+  template:
+    metadata:
+      labels:
+        app: gh-gists
+    spec:
+      containers:
+      - name: gh-gist
+        image: evoio/gh-gists:latest
+        resources:
+          limits:
+            memory: "128Mi"
+          requests:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
