@@ -9,9 +9,15 @@ pipeline {
       }
     }
 
-    // stage('push') {
-
-    // }
+    stage('push') {
+      withCredentials([string(credentialsId: 'DOCKER_TOKEN', variable: 'TOKEN')]) {
+        sh '''
+          set +x
+          docker login -u evoio -p $TOKEN
+          docker push
+        '''
+      }
+    }
 
     // stage('deploy') {
 
